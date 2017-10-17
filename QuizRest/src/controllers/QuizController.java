@@ -36,6 +36,7 @@ public class QuizController {
 
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public Quiz show(@PathVariable int id, HttpServletResponse res) {
+		res.setStatus(302);
 		return quizDao.show(id);
 	}
 
@@ -51,8 +52,10 @@ public class QuizController {
 		return quizDao.update(id, quizJSON);
 	}
 
-	public boolean destroy(int id, HttpServletResponse res) {
-		return false;
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	public boolean destroy(@PathVariable int id, HttpServletResponse res) {
+		res.setStatus(204);
+		return quizDao.destroy(id);
 	}
 
 	public Set<Question> showQuestions(int id, HttpServletResponse res) {

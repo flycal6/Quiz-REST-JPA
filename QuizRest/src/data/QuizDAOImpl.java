@@ -64,8 +64,13 @@ public class QuizDAOImpl implements QuizDAO {
 
 	@Override
 	public boolean destroy(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			em.remove(em.find(Quiz.class, id));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
