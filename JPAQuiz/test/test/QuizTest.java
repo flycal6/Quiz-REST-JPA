@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,23 +11,24 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import entities.Question;
 import entities.Quiz;
 
 public class QuizTest {
 	private EntityManagerFactory emf = null;
 	private EntityManager em = null;
-	private Quiz q = null;
+	private Quiz quiz = null;
 
 	@Before
 	public void setup() throws Exception {
 		emf = Persistence.createEntityManagerFactory("QuizApp");
 		em = emf.createEntityManager();
-		q = em.find(Quiz.class, 1);
+		quiz = em.find(Quiz.class, 1);
 	}
 
 	@After
 	public void teardown() {
-		q = null;
+		quiz = null;
 		em.close();
 		emf.close();
 	}
@@ -39,7 +41,38 @@ public class QuizTest {
 	
 	@Test
 	public void databaseConnectsAndFindsFirstEntry() {
-		assertEquals("Dinosaurs", q.getName());
+		assertEquals("Dinosaurs", quiz.getName());
+	}
+	
+	@Test
+	public void getListOfQuestionsFromATest() {
+		quiz = em.find(Quiz.class, 10);
+		assertEquals(5, quiz.getQuestions().size());
+		
+		boolean questionTextFound = false;
+		for (Question q : quiz.getQuestions()) {
+			System.out.println(q.getQuestionText());
+			if(q.getQuestionText().equals("What is the Colorado state flower?")) {
+				questionTextFound = true;
+				break;
+			}
+		}
+
+		assertTrue(questionTextFound);
+	}
+	
+	@Test
+	public void getQuestionTextFromAQuiz() {
+		quiz = em.find(Quiz.class, 10);
+		
+		boolean questionTextFound = false;
+		for (Question q : quiz.getQuestions()) {
+			if(q.getQuestionText().equals("What is the Colorado state flower?")) {
+				questionTextFound = true;
+				break;
+			}
+		}
+		assertTrue(questionTextFound);
 	}
 
 }

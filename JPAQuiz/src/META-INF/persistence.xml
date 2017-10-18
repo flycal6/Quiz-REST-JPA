@@ -10,6 +10,8 @@
 
     <!-- List Entities Here -->
     <class>entities.Quiz</class>
+    <class>entities.Question</class>
+    <class>entities.Answer</class>
     
 
     <properties>
