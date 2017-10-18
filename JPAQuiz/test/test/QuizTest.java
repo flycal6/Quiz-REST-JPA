@@ -14,10 +14,14 @@ import org.junit.Test;
 import entities.Question;
 import entities.Quiz;
 
+
 public class QuizTest {
 	private EntityManagerFactory emf = null;
 	private EntityManager em = null;
 	private Quiz quiz = null;
+	
+	
+	
 
 	@Before
 	public void setup() throws Exception {
