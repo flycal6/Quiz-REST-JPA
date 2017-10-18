@@ -48,17 +48,6 @@ public class QuizTest {
 	public void getListOfQuestionsFromATest() {
 		quiz = em.find(Quiz.class, 10);
 		assertEquals(5, quiz.getQuestions().size());
-		
-		boolean questionTextFound = false;
-		for (Question q : quiz.getQuestions()) {
-			System.out.println(q.getQuestionText());
-			if(q.getQuestionText().equals("What is the Colorado state flower?")) {
-				questionTextFound = true;
-				break;
-			}
-		}
-
-		assertTrue(questionTextFound);
 	}
 	
 	@Test
