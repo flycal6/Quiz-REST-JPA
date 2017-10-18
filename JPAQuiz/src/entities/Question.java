@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Question {
 	
@@ -21,9 +24,11 @@ public class Question {
 	@Column(name="question_text")
 	private String questionText;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="question")
 	private Set<Answer> answers;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="quiz_id")
 	private Quiz quiz;
