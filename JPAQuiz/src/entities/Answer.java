@@ -23,7 +23,7 @@ public class Answer {
 	@Column(name="is_correct")
 	private Boolean isCorrect;
 	
-	@JsonBackReference
+	@JsonBackReference(value="answersToQuestion")
 	@ManyToOne
 	@JoinColumn(name="question_id")
 	private Question question;

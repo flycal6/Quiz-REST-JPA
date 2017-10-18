@@ -1,5 +1,6 @@
 package data;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -75,8 +76,12 @@ public class QuizDAOImpl implements QuizDAO {
 
 	@Override
 	public Set<Question> showQuestions(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		// This:
+//		String q = "SELECT * FROM Question q JOIN Answer a ON q.id = a.question_id WHERE q.quiz_id=10;";
+		
+		// Translates in Hibernate to this:
+		String q = "SELECT q FROM Question q JOIN FETCH q.answers WHERE q.quiz.id=:id";
+		return new HashSet<Question>(em.createQuery(q, Question.class).setParameter("id", id).getResultList());
 	}
 
 	@Override

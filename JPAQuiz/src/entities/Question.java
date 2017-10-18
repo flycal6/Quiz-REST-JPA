@@ -24,7 +24,7 @@ public class Question {
 	@Column(name="question_text")
 	private String questionText;
 	
-	@JsonManagedReference
+	@JsonManagedReference(value="answersToQuestion")
 	@OneToMany(mappedBy="question")
 	private Set<Answer> answers;
 	
