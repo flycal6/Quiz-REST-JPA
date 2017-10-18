@@ -58,15 +58,21 @@ public class QuizController {
 		return quizDao.destroy(id);
 	}
 
-	public Set<Question> showQuestions(int id, HttpServletResponse res) {
-		return null;
+	@RequestMapping(path = "/{id}/questions", method = RequestMethod.GET)
+	public Set<Question> showQuestions(@PathVariable int id, HttpServletResponse res) {
+		res.setStatus(202);
+		return quizDao.showQuestions(id);
 	}
 
-	public Question createQuestions(int id, String questionJson, HttpServletResponse res) {
-		return null;
+	@RequestMapping(path = "/{id}/questions", method = RequestMethod.POST)
+	public Question createQuestions(@PathVariable int id, @RequestBody String questionJson, HttpServletResponse res) {
+		res.setStatus(201);
+		return quizDao.createQuestion(id, questionJson);
 	}
 
-	public boolean destroyQuestions(int id, int questid, HttpServletResponse res) {
-		return false;
+	@RequestMapping(path = "/{id}/questions/{id}", method = RequestMethod.DELETE)
+	public boolean destroyQuestions(@PathVariable int id, @PathVariable int questid, HttpServletResponse res) {
+		res.setStatus(204);
+		return quizDao.destroyQuestion(id, questid);
 	}
 }

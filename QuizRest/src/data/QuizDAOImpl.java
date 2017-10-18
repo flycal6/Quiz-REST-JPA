@@ -80,7 +80,7 @@ public class QuizDAOImpl implements QuizDAO {
 	}
 
 	@Override
-	public Question createQuestion(int id, Question q) {
+	public Question createQuestion(int id, String quizJson) {
 		// TODO Auto-generated method stub
 		return null;
 	}
