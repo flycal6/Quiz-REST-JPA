@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import entities.Answer;
 import entities.Question;
 import entities.Quiz;
 
@@ -52,6 +53,27 @@ public class QuizTest {
 	public void getListOfQuestionsFromATest() {
 		quiz = em.find(Quiz.class, 10);
 		assertEquals(5, quiz.getQuestions().size());
+	}
+	
+	@Test
+	public void getListOfAnswersFromQuestion() {
+		String q = "SELECT q FROM Question q JOIN FETCH q.answers WHERE q.id=1";
+		int numOfQuestions = em.createQuery(q, Question.class).getResultList().size();
+		assertEquals(4, numOfQuestions);
+	}
+	
+	@Test
+	public void getAnswerTextFromAQuestion() {
+		String query = "SELECT q FROM Question q JOIN FETCH q.answers WHERE q.id=1";
+		Question q = em.createQuery(query, Question.class).getResultList().get(0);
+		boolean answerFound = false;
+		for ( Answer a : q.getAnswers()) {
+			if(a.getAnswerText().equals("Rhode Island")) {
+				answerFound = true;
+				break;
+			}
+		}
+		assertTrue(answerFound);
 	}
 	
 	@Test
