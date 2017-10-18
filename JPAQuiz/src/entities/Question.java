@@ -2,6 +2,7 @@ package entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Question {
 	private String questionText;
 	
 	@JsonManagedReference(value="answersToQuestion")
-	@OneToMany(mappedBy="question")
+	@OneToMany(mappedBy="question", cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	private Set<Answer> answers;
 	
 	@JsonIgnore

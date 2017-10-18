@@ -76,7 +76,7 @@ public class QuizDAOImpl implements QuizDAO {
 
 	@Override
 	public Set<Question> showQuestions(int id) {
-		// This:
+		// This MySQL query:
 //		String q = "SELECT * FROM Question q JOIN Answer a ON q.id = a.question_id WHERE q.quiz_id=10;";
 		
 		// Translates in Hibernate to this:
@@ -86,14 +86,28 @@ public class QuizDAOImpl implements QuizDAO {
 
 	@Override
 	public Question createQuestion(int id, String quizJson) {
-		// TODO Auto-generated method stub
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			Question questionMapped = mapper.readValue(quizJson, Question.class);
+			questionMapped.setQuiz(em.find(Quiz.class, id));
+			em.persist(questionMapped);
+			em.flush();
+			return questionMapped;
+		} catch (Exception e) {
+			e.printStackTrace();		
+		}
 		return null;
 	}
 
 	@Override
 	public boolean destroyQuestion(int id, int questid) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			em.remove(em.find(Question.class, questid));
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

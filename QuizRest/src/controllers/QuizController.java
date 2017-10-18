@@ -70,7 +70,7 @@ public class QuizController {
 		return quizDao.createQuestion(id, questionJson);
 	}
 
-	@RequestMapping(path = "/{id}/questions/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/{id}/questions/{questid}", method = RequestMethod.DELETE)
 	public boolean destroyQuestions(@PathVariable int id, @PathVariable int questid, HttpServletResponse res) {
 		res.setStatus(204);
 		return quizDao.destroyQuestion(id, questid);
