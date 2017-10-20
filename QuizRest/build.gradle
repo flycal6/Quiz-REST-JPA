@@ -32,7 +32,6 @@ sourceSets {
     resources {
       srcDir 'test'
       srcDir 'test/resources'
-      srcDir 'WebContent/WEB-INF'
       srcDir 'src'
       srcDir 'src/resources'
     }

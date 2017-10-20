@@ -36,7 +36,7 @@ public class QuizController {
 
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public Quiz show(@PathVariable int id, HttpServletResponse res) {
-		res.setStatus(302);
+		res.setStatus(202);
 		return quizDao.show(id);
 	}
 
